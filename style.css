@@ -1,0 +1,41 @@
+html {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  height: inherit;
+  margin: 0;
+  color: white;
+  text-shadow: 0 0 4px white;
+}
+
+/* positions must all be absolute or they sit before and behind canvas */
+/* which is set to be full screen */
+
+h1 {
+  position: absolute;
+  top: -5px;
+  right: 5px;
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: -1px;
+}
+
+p {
+  position: absolute;
+  margin: 0;
+  top: 35px;
+  right: 5px;
+}
+
+h2.banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 200px auto;
+  text-align: center;
+  font-size: 10vw;
+}
