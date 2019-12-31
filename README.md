@@ -2,4 +2,4 @@
 
 Please stand by while the page is loading...
 
-Click [here](index.html) to waste some time.
+Click [here](/projects/bouncingballs/bouncingballs.html) to waste some time.
