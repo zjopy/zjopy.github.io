@@ -1,0 +1,84 @@
+* {
+  box-sizing: border-box;
+  /* border: 1px solid rgba(255, 0, 0, 0.5); */
+}
+
+/* ----------- Navigation menu ----------- */
+nav {
+  /* background-color: DodgerBlue; */
+}
+
+.navitem {
+  display: inline-block;
+  width: 100%;
+  padding: 20px;
+  /* background-color: rgba(0, 0, 156, 0.1); */
+  border: 1px solid #ccc;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.2);
+}
+
+.navitem:hover {
+  /* Must come after normal state styling */
+  background-color: #2075d6;
+}
+
+.navitem:active {
+  /* Must come after hover state styling */
+  background-color: #1565C0;
+  box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.4);
+}
+
+/* ----------- Styling ----------- */
+body {
+  margin: 0;
+  background-color: #b92b27;
+  color: white;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+header {
+  margin: 0;
+}
+
+header h1 {
+  /* font-size: 5vw; */
+  padding: 1vw 0;
+  text-transform: capitalize;
+}
+
+/* fixed background, could switch to whatever container */
+main {
+  /* background-image: url("sample.jpg");
+  background-position: center;
+  background-size: cover; */
+  background-attachment: fixed;
+  background: linear-gradient(0deg, #1565C0, #b92b27);
+}
+
+main {
+  /* create some height while also centering vertically*/
+  padding: 300px 0;
+  font-size: 1.2em;
+}
+
+footer {
+  padding: 5px 0;
+  background-color: #1565C0;
+  color: #aaa;
+}
+
+/* ----------- Making page responsive ----------- */
+/* Use mobile first approach */
+@media screen and (min-width: 600px) {
+  nav {
+    position: sticky;
+    top: 0;
+  }
+  .navitem {
+    /* need to make selectors at least as specific as above */
+    width: 25%;
+  }
+}
