@@ -34,7 +34,7 @@ function getQuote() {
     getQuote();
   } else {
     titleElement.textContent = '- ' + quoteOfTheDay.category + ' -';
-    quoteElement.textContent = '\"' + quoteOfTheDay.question.replace("XYZ", "...") + '\"';
+    quoteElement.textContent = '\“' + quoteOfTheDay.question.replace("XYZ", "...") + '\”';
   }
 
 }
