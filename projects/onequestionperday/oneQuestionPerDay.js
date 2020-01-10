@@ -1,27 +1,38 @@
-let allQuotes;
-
-// Todo: convert to promises
-
-function fetchAsset(url) {
-  const request = new XMLHttpRequest();
-  request.open('GET', url);
-  request.responseType = "json";
-  request.send();
-  request.onload = function() {
-    if (request.status == 200) {
-      allQuotes = request.response;
-      getQuote();
-    } else {
-      throw Error(request.statusText);
-    }
-  };
-}
-
 const titleElement = document.querySelector("#title");
 const quoteElement = document.querySelector("#quote");
+const buttonElement = document.querySelector("#generateButton");
+let allQuotes;
 
-// fetchAsset("https://api.myjson.com/bins/134p06"); // to be able to run locally
-fetchAsset("authenticagility.json");
+function fetchAsset(url, type) {
+  return new Promise((resolve, reject) => {
+    const request = new XMLHttpRequest();
+    request.open('GET', url);
+    request.responseType = type;
+    request.send();
+
+    request.onload = () => {
+      if (request.status === 200) {
+        resolve(request.response);
+      } else {
+        reject(Error(request.statusText));
+      }
+    };
+
+    request.onerror = () => {
+      reject(Error("Network Error"))
+    };
+
+  });
+}
+
+// fetchAsset("https://api.myjson.com/bins/134p06", 'json') // to be able to run locally
+fetchAsset("authenticagility.json", 'json')
+  .then(data => {
+    allQuotes = data;
+    getQuote();
+  }, error => {
+    console.log("Promise rejected: " + error);
+  });
 
 function getQuote() {
 
@@ -38,3 +49,5 @@ function getQuote() {
   }
 
 }
+
+buttonElement.addEventListener("click", getQuote);

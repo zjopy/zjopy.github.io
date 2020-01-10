@@ -8,7 +8,6 @@ body {
   height: 100vh;
   /* to be containing block of absolutely positioned blockquote */
   position: relative;
-  overflow: hidden;
 }
 
 header h1 {
@@ -21,7 +20,7 @@ blockquote {
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 0 auto;
-  padding: 15px;
+  padding: 1em 3em;
   background-color: #eee;
   border-radius: 5px;
 }
@@ -40,9 +39,38 @@ blockquote {
   margin: 0;
 }
 
+#generateButton {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  margin: 0 auto;
+  padding: 0.8em 1em;
+  background-color: #0069ed;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-family: inherit;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+
+#generateButton:hover,
+#generateButton:focus {
+  background-color: #0062de;
+}
+
+#generateButton:focus {
+  outline: none;
+}
+
+#generateButton:active {
+  background-color: #0054c0;
+}
+
 footer {
   position: absolute;
-  bottom: 50px;
+  bottom: 3em;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -53,5 +81,6 @@ footer {
 @media screen and (max-width: 800px) {
   blockquote {
     width: 90%;
+    padding: 1em;
   }
 }
