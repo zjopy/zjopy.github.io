@@ -20,7 +20,8 @@ function fetchAsset(url) {
 const titleElement = document.querySelector("#title");
 const quoteElement = document.querySelector("#quote");
 
-fetchAsset("https://api.myjson.com/bins/134p06"); // to be able to run locally
+// fetchAsset("https://api.myjson.com/bins/134p06"); // to be able to run locally
+fetchAsset("authenticagility.json");
 
 function getQuote() {
 
