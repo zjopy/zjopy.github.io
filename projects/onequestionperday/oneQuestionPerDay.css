@@ -49,3 +49,9 @@ footer {
   font-size: 0.6em;
   color: #aaa;
 }
+
+@media screen and (max-width: 800px) {
+  blockquote {
+    width: 90%;
+  }
+}
