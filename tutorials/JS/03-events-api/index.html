@@ -1,0 +1,688 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>Events API</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --node-fill:  #ECECFF; --node-border:  #CCCCFF; --cluster-fill:  #ffffde; --cluster-border:  #aaaa33; --note-fill:  #fff5ad; --note-border:  #aaaa33; --mermaid-color:  var(--text-color); }
+.label { font-family: var(--mermaid-font-family); color: rgb(51, 51, 51); }
+.label text { fill: rgb(51, 51, 51); }
+.node rect, .node circle, .node ellipse, .node polygon { fill: var(--node-fill); stroke: rgb(147, 112, 219); stroke-width: 1px; }
+.node .label { text-align: center; }
+.node.clickable { cursor: pointer; }
+.arrowheadPath { fill: var(--text-color); }
+.edgePath .path { stroke: var(--text-color); stroke-width: 1.5px; }
+.edgeLabel { background-color: rgb(232, 232, 232); text-align: center; }
+.cluster rect { fill: var(--cluster-fill); stroke: var(--cluster-border); stroke-width: 1px; }
+.cluster text { fill: var(--text-color); }
+div.mermaidTooltip { position: absolute; text-align: center; max-width: 200px; padding: 2px; font-family: var(--mermaid-font-family); font-size: 12px; background: var(--cluster-fill); border: 1px solid var(--cluster-border); border-top-left-radius: 2px; border-top-right-radius: 2px; border-bottom-right-radius: 2px; border-bottom-left-radius: 2px; pointer-events: none; z-index: 100; }
+.actor { stroke: var(--node-border); fill: var(--node-fill); }
+text.actor { fill: black; stroke: none; }
+.actor-line { stroke: grey; }
+.messageLine0 { stroke-width: 1.5px; stroke: var(--text-color); }
+.messageLine1 { stroke-width: 1.5px; stroke: var(--text-color); }
+#arrowhead { fill: var(--text-color); }
+.sequenceNumber { fill: white; }
+#sequencenumber { fill: var(--text-color); }
+#crosshead path { fill: var(--text-color)  !important; stroke: var(--text-color)  !important; }
+.messageText { fill: var(--text-color); stroke: none; }
+.labelBox { stroke: var(--node-border); fill: var(--node-fill); }
+.labelText { fill: black; stroke: none; }
+.loopText { fill: black; stroke: none; }
+.loopLine { stroke-width: 2px; stroke: var(--node-border); }
+.note { stroke: var(--cluster-border); fill: rgb(255, 245, 173); }
+.noteText { fill: black; stroke: none; font-family: var(--mermaid-font-family); font-size: 14px; }
+.activation0 { fill: rgb(244, 244, 244); stroke: rgb(102, 102, 102); }
+.activation1 { fill: rgb(244, 244, 244); stroke: rgb(102, 102, 102); }
+.activation2 { fill: rgb(244, 244, 244); stroke: rgb(102, 102, 102); }
+.mermaid-main-font { font-family: var(--mermaid-font-family); }
+.section { stroke: none; opacity: 0.2; }
+.section0 { fill: rgba(102, 102, 255, 0.490196); }
+.section2 { fill: rgb(255, 244, 0); }
+.section1, .section3 { fill: white; opacity: 0.2; }
+.sectionTitle0 { fill: var(--text-color); }
+.sectionTitle1 { fill: var(--text-color); }
+.sectionTitle2 { fill: var(--text-color); }
+.sectionTitle3 { fill: var(--text-color); }
+.sectionTitle { text-anchor: start; font-size: 11px; font-family: var(--mermaid-font-family); }
+.grid .tick { stroke: lightgrey; opacity: 0.3; shape-rendering: crispedges; }
+.grid .tick text { font-family: var(--mermaid-font-family); }
+.grid path { stroke-width: 0px; }
+.today { fill: none; stroke: red; stroke-width: 2px; }
+.task { stroke-width: 2px; }
+.taskText { text-anchor: middle; font-family: var(--mermaid-font-family); }
+.taskText:not([font-size]) { font-size: 11px; }
+.taskTextOutsideRight { fill: black; text-anchor: start; font-size: 11px; font-family: var(--mermaid-font-family); }
+.taskTextOutsideLeft { fill: black; text-anchor: end; font-size: 11px; }
+.task.clickable { cursor: pointer; }
+.taskText.clickable { cursor: pointer; font-weight: bold; fill: rgb(0, 49, 99) !important; }
+.taskTextOutsideLeft.clickable { cursor: pointer; font-weight: bold; fill: rgb(0, 49, 99) !important; }
+.taskTextOutsideRight.clickable { cursor: pointer; font-weight: bold; fill: rgb(0, 49, 99) !important; }
+.taskText0, .taskText1, .taskText2, .taskText3 { fill: white; }
+.task0, .task1, .task2, .task3 { fill: rgb(138, 144, 221); stroke: rgb(83, 79, 188); }
+.taskTextOutside0, .taskTextOutside2 { fill: black; }
+.taskTextOutside1, .taskTextOutside3 { fill: black; }
+.active0, .active1, .active2, .active3 { fill: rgb(191, 199, 255); stroke: rgb(83, 79, 188); }
+.activeText0, .activeText1, .activeText2, .activeText3 { fill: black !important; }
+.done0, .done1, .done2, .done3 { stroke: grey; fill: lightgrey; stroke-width: 2px; }
+.doneText0, .doneText1, .doneText2, .doneText3 { fill: black !important; }
+.crit0, .crit1, .crit2, .crit3 { stroke: rgb(255, 136, 136); fill: red; stroke-width: 2px; }
+.activeCrit0, .activeCrit1, .activeCrit2, .activeCrit3 { stroke: rgb(255, 136, 136); fill: rgb(191, 199, 255); stroke-width: 2px; }
+.doneCrit0, .doneCrit1, .doneCrit2, .doneCrit3 { stroke: rgb(255, 136, 136); fill: lightgrey; stroke-width: 2px; cursor: pointer; shape-rendering: crispedges; }
+.milestone { transform: rotate(45deg) scale(0.8, 0.8); }
+.milestoneText { font-style: italic; }
+.doneCritText0, .doneCritText1, .doneCritText2, .doneCritText3 { fill: black !important; }
+.activeCritText0, .activeCritText1, .activeCritText2, .activeCritText3 { fill: black !important; }
+.titleText { text-anchor: middle; font-size: 18px; fill: black; font-family: var(--mermaid-font-family); }
+g.classGroup text { fill: rgb(147, 112, 219); stroke: none; font-family: var(--mermaid-font-family); font-size: 10px; }
+g.classGroup text .title { font-weight: bolder; }
+g.classGroup rect { fill: var(--node-fill); stroke: rgb(147, 112, 219); }
+g.classGroup line { stroke: rgb(147, 112, 219); stroke-width: 1px; }
+.classLabel .box { stroke: none; stroke-width: 0px; fill: var(--node-fill); opacity: 0.5; }
+.classLabel .label { fill: rgb(147, 112, 219); font-size: 10px; }
+.relation { stroke: rgb(147, 112, 219); stroke-width: 1px; fill: none; }
+#compositionStart { fill: rgb(147, 112, 219); stroke: rgb(147, 112, 219); stroke-width: 1px; }
+#compositionEnd { fill: rgb(147, 112, 219); stroke: rgb(147, 112, 219); stroke-width: 1px; }
+#aggregationStart { fill: var(--node-fill); stroke: rgb(147, 112, 219); stroke-width: 1px; }
+#aggregationEnd { fill: var(--node-fill); stroke: rgb(147, 112, 219); stroke-width: 1px; }
+#dependencyStart { fill: rgb(147, 112, 219); stroke: rgb(147, 112, 219); stroke-width: 1px; }
+#dependencyEnd { fill: rgb(147, 112, 219); stroke: rgb(147, 112, 219); stroke-width: 1px; }
+#extensionStart { fill: rgb(147, 112, 219); stroke: rgb(147, 112, 219); stroke-width: 1px; }
+#extensionEnd { fill: rgb(147, 112, 219); stroke: rgb(147, 112, 219); stroke-width: 1px; }
+.commit-id, .commit-msg, .branch-label { fill: lightgrey; color: lightgrey; font-family: var(--mermaid-font-family); }
+.pieTitleText { text-anchor: middle; font-size: 25px; fill: var(--text-color); font-family: var(--mermaid-font-family); }
+.slice { font-family: var(--mermaid-font-family); }
+g.stateGroup text { fill: rgb(147, 112, 219); stroke: none; font-size: 10px; font-family: var(--mermaid-font-family); }
+g.stateGroup text { fill: rgb(147, 112, 219); stroke: none; font-size: 10px; }
+g.stateGroup .state-title { font-weight: bolder; fill: black; }
+g.stateGroup rect { fill: var(--node-fill); stroke: rgb(147, 112, 219); }
+g.stateGroup line { stroke: rgb(147, 112, 219); stroke-width: 1px; }
+.transition { stroke: rgb(147, 112, 219); stroke-width: 1px; fill: none; }
+.stateGroup .composit { fill: white; border-bottom-width: 1px; }
+.state-note { stroke: var(--cluster-border); fill: rgb(255, 245, 173); }
+.state-note text { fill: black; stroke: none; font-size: 10px; }
+.stateLabel .box { stroke: none; stroke-width: 0px; fill: var(--node-fill); opacity: 0.5; }
+.stateLabel text { fill: black; font-size: 10px; font-weight: bold; font-family: var(--mermaid-font-family); }
+.node text { font-size: 14px; }
+div.mermaidTooltip { position: absolute; text-align: center; max-width: 200px; padding: 2px; font-family: var(--mermaid-font-family); font-size: 12px; background: var(--cluster-fill); border: 1px solid var(--cluster-border); border-top-left-radius: 2px; border-top-right-radius: 2px; border-bottom-right-radius: 2px; border-bottom-left-radius: 2px; pointer-events: none; z-index: 100; }
+#write .md-diagram-panel .md-diagram-panel-preview div { }
+
+
+:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; tab-size: 4; background-position: inherit inherit; background-repeat: inherit inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) { 
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.701961); color: rgb(85, 85, 85); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; }
+.CodeMirror-linenumber { }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; background-position: 0px 0px; background-repeat: initial initial; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print { 
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) { 
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background-color: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; background-position: initial initial; background-repeat: initial initial; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; }
+a.md-print-anchor { white-space: pre !important; border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; text-shadow: initial !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+svg[id^="mermaidChart"] { line-height: 1em; }
+mark { background-color: rgb(255, 255, 0); color: rgb(0, 0, 0); background-position: initial initial; background-repeat: initial initial; }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; white-space: nowrap; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; border: none !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-width: 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; word-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; background-position: 0px 0px; background-repeat: initial initial; }
+.CodeMirror-wrap pre { word-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right-width: 30px; border-right-style: solid; border-right-color: transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right-style: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right-style: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background-color: rgba(255, 255, 0, 0.4); background-position: initial initial; background-repeat: initial initial; }
+@media print { 
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    padding-bottom: .3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+   padding-bottom: .3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-mac'><h1><a name="events-api" class="md-header-anchor"></a><span>Events API</span></h1><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n0"><a class="md-toc-inner" href="#events-api">Events API</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n3"><a class="md-toc-inner" href="#idea">Idea</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n16"><a class="md-toc-inner" href="#event-objects">Event objects</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n32"><a class="md-toc-inner" href="#properties">Properties</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n33"><a class="md-toc-inner" href="#general-from-event">General (from <code>Event</code>)</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n58"><a class="md-toc-inner" href="#specific">Specific</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n65"><a class="md-toc-inner" href="#event-targets">Event targets</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n72"><a class="md-toc-inner" href="#event-handler">Event handler</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n96"><a class="md-toc-inner" href="#onevent-handlers-👎">On<code>event</code> handlers 👎</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n97"><a class="md-toc-inner" href="#inline-ehs">Inline EHs</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n119"><a class="md-toc-inner" href="#eh-properties">EH properties</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n137"><a class="md-toc-inner" href="#event-listeners-👍">Event Listeners 👍</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n157"><a class="md-toc-inner" href="#dom-event-flow">DOM event flow</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n184"><a class="md-toc-inner" href="#custom-events">Custom events</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n196"><a class="md-toc-inner" href="#event-rate">Event rate</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n208"><a class="md-toc-inner" href="#debouncing">Debouncing</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n215"><a class="md-toc-inner" href="#throttling">Throttling</a></span></p></div><h2><a name="idea" class="md-header-anchor"></a><span>Idea</span></h2><ul><li><span>for JS to provide interactivity, it needs a way of reacting to changes in the system, so called &quot;events&quot;</span></li><li><span>event (object): occurence in system represented as JS object, has properties related to type of event</span></li><li><span>event target (&quot;ET&quot;): object that events can occur upon / which can &quot;emit&quot; events, e.g. DOM nodes, window, other APIs</span></li><li><span>event handler (&quot;EH&quot;): code run when event happens, &quot;handles&quot; event</span></li><li><span>browser fires event, checks if event target has event handler(s) &quot;attached&quot; / &quot;registered&quot;, calls handler(s) with event object as argument</span></li></ul><p>&nbsp;</p><h2><a name="event-objects" class="md-header-anchor"></a><span>Event objects</span></h2><ul><li><span>events are represented as objects, has properties related to type of event, methods to control event behavior</span></li><li><code>Event</code><span> interface is ancestor to all event objects, general event type, more built-in event types in inheritance chain</span></li></ul><div class="md-diagram-panel"><svg id="mermaidChart0" width="100%" xmlns="http://www.w3.org/2000/svg" style="max-width: 882.3203125px;" viewBox="0 0 882.3203125 310"><style>
+:root { --mermaid-font-family: sans-serif}
+:root { --mermaid-alt-font-family: sans-serif}</style><style></style><g transform="translate(-12, -12)"><g class="output"><g class="clusters"></g><g class="edgePaths"><g class="edgePath" style="opacity: 1;"><path class="path" d="M481.78125,41.23496208930076L138.75,81L138.75,106" marker-end="url(#arrowhead29)" style="fill:none"></path><defs><marker id="arrowhead29" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1px; stroke-dasharray: 1px, 0px;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M481.78125,43.644214162348874L297.0859375,81L297.0859375,106" marker-end="url(#arrowhead30)" style="fill:none"></path><defs><marker id="arrowhead30" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1px; stroke-dasharray: 1px, 0px;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M481.78125,53.94146341463414L434.4140625,81L434.4140625,106" marker-end="url(#arrowhead31)" style="fill:none"></path><defs><marker id="arrowhead31" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1px; stroke-dasharray: 1px, 0px;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M537.59375,53.94146341463414L584.9609375,81L584.9609375,106" marker-end="url(#arrowhead32)" style="fill:none"></path><defs><marker id="arrowhead32" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1px; stroke-dasharray: 1px, 0px;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M537.59375,42.93941342937998L752.625,81L752.625,106" marker-end="url(#arrowhead33)" style="fill:none"></path><defs><marker id="arrowhead33" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1px; stroke-dasharray: 1px, 0px;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M537.59375,41.32588454376164L870.484375,81L870.484375,106" marker-end="url(#arrowhead34)" style="fill:none"></path><defs><marker id="arrowhead34" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1px; stroke-dasharray: 1px, 0px;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M399.5078125,128.08062529204366L66.5859375,167L66.5859375,192" marker-end="url(#arrowhead35)" style="fill:none"></path><defs><marker id="arrowhead35" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1px; stroke-dasharray: 1px, 0px;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M399.5078125,130.6925836903891L210.140625,167L210.140625,192" marker-end="url(#arrowhead36)" style="fill:none"></path><defs><marker id="arrowhead36" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1px; stroke-dasharray: 1px, 0px;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M401.59938226744185,142L356.0234375,167L356.0234375,192" marker-end="url(#arrowhead37)" style="fill:none"></path><defs><marker id="arrowhead37" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1px; stroke-dasharray: 1px, 0px;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M467.22874273255815,142L512.8046875,167L512.8046875,192" marker-end="url(#arrowhead38)" style="fill:none"></path><defs><marker id="arrowhead38" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1px; stroke-dasharray: 1px, 0px;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M469.3203125,130.5337187553137L664.140625,167L664.140625,192" marker-end="url(#arrowhead39)" style="fill:none"></path><defs><marker id="arrowhead39" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1px; stroke-dasharray: 1px, 0px;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M469.3203125,128.42722831597382L773.4453125,167L773.4453125,192" marker-end="url(#arrowhead40)" style="fill:none"></path><defs><marker id="arrowhead40" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1px; stroke-dasharray: 1px, 0px;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M307.109375,224.93608876560333L215.203125,253L215.203125,278" marker-end="url(#arrowhead41)" style="fill:none"></path><defs><marker id="arrowhead41" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1px; stroke-dasharray: 1px, 0px;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M356.0234375,228L356.0234375,253L356.0234375,278" marker-end="url(#arrowhead42)" style="fill:none"></path><defs><marker id="arrowhead42" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1px; stroke-dasharray: 1px, 0px;"></path></marker></defs></g><g class="edgePath" style="opacity: 1;"><path class="path" d="M403.5677688953488,228L469.6015625,253L469.6015625,278" marker-end="url(#arrowhead43)" style="fill:none"></path><defs><marker id="arrowhead43" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="strokeWidth" markerWidth="8" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" class="arrowheadPath" style="stroke-width: 1px; stroke-dasharray: 1px, 0px;"></path></marker></defs></g></g><g class="edgeLabels"><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span></span></div></foreignObject></g></g><g class="edgeLabel" transform="" style="opacity: 1;"><g transform="translate(0,0)" class="label"><foreignObject width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; white-space: nowrap;"><span></span></div></foreignObject></g></g></g><g class="nodes"><g class="node" id="A" transform="translate(509.6875,38)" style="opacity: 1;"><rect rx="0" ry="0" x="-27.90625" y="-18" width="55.8125" height="36"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-17.90625,-8)"><foreignObject width="35.8125" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 0.9rem; line-height: 16px; white-space: nowrap;">Event</div></foreignObject></g></g></g><g class="node" id="ProgressEvent" transform="translate(138.75,124)" style="opacity: 1;"><rect rx="0" ry="0" x="-55.9140625" y="-18" width="111.828125" height="36"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-45.9140625,-8)"><foreignObject width="91.828125" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 0.9rem; line-height: 16px; white-space: nowrap;">ProgressEvent</div></foreignObject></g></g></g><g class="node" id="StorageEvent" transform="translate(297.0859375,124)" style="opacity: 1;"><rect rx="0" ry="0" x="-52.421875" y="-18" width="104.84375" height="36"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-42.421875,-8)"><foreignObject width="84.84375" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 0.9rem; line-height: 16px; white-space: nowrap;">StorageEvent</div></foreignObject></g></g></g><g class="node" id="B" transform="translate(434.4140625,124)" style="opacity: 1;"><rect rx="0" ry="0" x="-34.90625" y="-18" width="69.8125" height="36"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-24.90625,-8)"><foreignObject width="49.8125" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 0.9rem; line-height: 16px; white-space: nowrap;">UIEvent</div></foreignObject></g></g></g><g class="node" id="MutationObserver" transform="translate(584.9609375,124)" style="opacity: 1;"><rect rx="0" ry="0" x="-65.640625" y="-18" width="131.28125" height="36"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-55.640625,-8)"><foreignObject width="111.28125" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 0.9rem; line-height: 16px; white-space: nowrap;">MutationObserver</div></foreignObject></g></g></g><g class="node" id="CustomEvent" transform="translate(752.625,124)" style="opacity: 1;"><rect rx="0" ry="0" x="-52.0234375" y="-18" width="104.046875" height="36"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-42.0234375,-8)"><foreignObject width="84.046875" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 0.9rem; line-height: 16px; white-space: nowrap;">CustomEvent</div></foreignObject></g></g></g><g class="node" id="_1" transform="translate(870.484375,124)" style="opacity: 1;"><rect rx="0" ry="0" x="-15.8359375" y="-18" width="31.671875" height="36"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-5.8359375,-8)"><foreignObject width="11.671875" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 0.9rem; line-height: 16px; white-space: nowrap;">...</div></foreignObject></g></g></g><g class="node" id="TouchEvent" transform="translate(66.5859375,210)" style="opacity: 1;"><rect rx="0" ry="0" x="-46.5859375" y="-18" width="93.171875" height="36"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-36.5859375,-8)"><foreignObject width="73.171875" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 0.9rem; line-height: 16px; white-space: nowrap;">TouchEvent</div></foreignObject></g></g></g><g class="node" id="FocusEvent" transform="translate(210.140625,210)" style="opacity: 1;"><rect rx="0" ry="0" x="-46.96875" y="-18" width="93.9375" height="36"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-36.96875,-8)"><foreignObject width="73.9375" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 0.9rem; line-height: 16px; white-space: nowrap;">FocusEvent</div></foreignObject></g></g></g><g class="node" id="C" transform="translate(356.0234375,210)" style="opacity: 1;"><rect rx="0" ry="0" x="-48.9140625" y="-18" width="97.828125" height="36"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-38.9140625,-8)"><foreignObject width="77.828125" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 0.9rem; line-height: 16px; white-space: nowrap;">MouseEvent</div></foreignObject></g></g></g><g class="node" id="KeyboardEvent" transform="translate(512.8046875,210)" style="opacity: 1;"><rect rx="0" ry="0" x="-57.8671875" y="-18" width="115.734375" height="36"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-47.8671875,-8)"><foreignObject width="95.734375" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 0.9rem; line-height: 16px; white-space: nowrap;">KeyboardEvent</div></foreignObject></g></g></g><g class="node" id="InputEvent" transform="translate(664.140625,210)" style="opacity: 1;"><rect rx="0" ry="0" x="-43.46875" y="-18" width="86.9375" height="36"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-33.46875,-8)"><foreignObject width="66.9375" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 0.9rem; line-height: 16px; white-space: nowrap;">InputEvent</div></foreignObject></g></g></g><g class="node" id="_2" transform="translate(773.4453125,210)" style="opacity: 1;"><rect rx="0" ry="0" x="-15.8359375" y="-18" width="31.671875" height="36"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-5.8359375,-8)"><foreignObject width="11.671875" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 0.9rem; line-height: 16px; white-space: nowrap;">...</div></foreignObject></g></g></g><g class="node" id="DragEvent" transform="translate(215.203125,296)" style="opacity: 1;"><rect rx="0" ry="0" x="-43.078125" y="-18" width="86.15625" height="36"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-33.078125,-8)"><foreignObject width="66.15625" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 0.9rem; line-height: 16px; white-space: nowrap;">DragEvent</div></foreignObject></g></g></g><g class="node" id="WheelEvent" transform="translate(356.0234375,296)" style="opacity: 1;"><rect rx="0" ry="0" x="-47.7421875" y="-18" width="95.484375" height="36"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-37.7421875,-8)"><foreignObject width="75.484375" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 0.9rem; line-height: 16px; white-space: nowrap;">WheelEvent</div></foreignObject></g></g></g><g class="node" id="_3" transform="translate(469.6015625,296)" style="opacity: 1;"><rect rx="0" ry="0" x="-15.8359375" y="-18" width="31.671875" height="36"></rect><g class="label" transform="translate(0,0)"><g transform="translate(-5.8359375,-8)"><foreignObject width="11.671875" height="16"><div xmlns="http://www.w3.org/1999/xhtml" style="display: inline-block; font-size: 0.9rem; line-height: 16px; white-space: nowrap;">...</div></foreignObject></g></g></g></g></g></g></svg></div><ul><li><span>can create custom events with </span><code>CustomEvent</code><span> interface (see later)</span></li><li><span>some events have default behavior, e.g. right click opens context menu, clicking on link opens URL, clicking submit button submits form, pressing keys scrolls / zooms / closes the page, etc.</span></li><li><span>can prevent default behavior for some but not all events, e.g. closing page is not cancelable</span></li><li><span>most times EHs are called before default behavior is executed, but not always, e.g. scroll event ❓</span></li></ul><h3><a name="properties" class="md-header-anchor"></a><span>Properties</span></h3><h4><a name="general-from-event" class="md-header-anchor"></a><span>General (from </span><code>Event</code><span>)</span></h4><ul><li><code>type</code><span>: event name, e.g. &quot;mousedown&quot;, &quot;mouseup&quot;, &quot;click&quot;</span></li><li><code>target</code><span>: event target</span></li><li><code>currentTarget</code><span>:* object handling event, to which EH is attached, same as </span><code>this</code></li><li><code>timeStamp</code><span>: time in ms since document creation</span></li><li><code>isTrusted</code><span>: if event was initiated &quot;normally&quot; or artificially through JS, boolean</span></li><li><code>defaultPrevented</code><span>: if </span><code>preventDefault()</code><span> has been called, boolean</span></li><li><code>cancelable</code><span>: if default action is cancelable using </span><code>preventDefault()</code><span> ❓, boolean</span></li><li><code>stopPropagation()</code><span>:* stops further event propagation after current node</span></li><li><code>stopImmediatePropagation()</code><span>:* like </span><code>stopPropagation()</code><span> plus stops all other EHs on current target</span></li><li><code>bubbles</code><span>:* if event bubbles, boolean</span></li><li><code>eventPhase</code><span>:* event&#39;s current &quot;flow phase&quot;, integer 0-3</span></li></ul><p><span>(* see later)</span></p><h4><a name="specific" class="md-header-anchor"></a><span>Specific</span></h4><ul><li><code>MouseEvent</code><span>: </span><code>pageX</code><span>/</span><code>Y</code><span>, </span><code>clientX</code><span>/</span><code>Y</code><span>, </span><code>screenX</code><span>/</span><code>Y</code><span>, </span><code>buttons</code><span>, </span><code>relatedTarget</code><span>, etc.</span></li><li><code>KeyboardEvent</code><span>: </span><code>key</code><span>, </span><code>metaKey</code><span>, </span><code>ctrlKey</code><span>, </span><code>altKey</code><span>, </span><code>shiftKey</code><span>, etc.</span></li></ul><p>&nbsp;</p><h2><a name="event-targets" class="md-header-anchor"></a><span>Event targets</span></h2><ul><li><span>event target (&quot;ET&quot;): object that events can occur upon / which can &quot;emit&quot; events, e.g. DOM nodes, window, other APIs</span></li><li><code>EventTarget</code><span> interface is ancestor to all event targets, e.g. </span><code>Node</code><span> (and all descendants like </span><code>Elements</code><span>, </span><code>Document</code><span>, etc.), </span><code>Window</code><span>, </span><code>XMLHttpRequest</code></li></ul><p>&nbsp;</p><h2><a name="event-handler" class="md-header-anchor"></a><span>Event handler</span></h2><ul><li><p><span>event handler (&quot;EH&quot;): code run when event happens, &quot;handles&quot; event</span></p></li><li><p><span>is &quot;registered&quot; / &quot;assigned&quot; to ET for given event type</span></p></li><li><p><span>multiple ways to add EHs to ET, legacy and modern</span></p></li><li><p><span>EH is called as function when event fires, i.e. uses function as EH</span></p></li><li><p><span>EO is passed as single argument to EH, i.e. if wants to pass othe rarguments to EH needs to wrap it in anonoymous function that has EO as single argument</span></p></li><li><p><span>multiple EHs for same event type and ET are called in order of attachment</span></p></li><li><p><span>for most but not all built-in event types, EHs are called async, e.g. EHs for &quot;focus&quot; and &quot;blur&quot; events are called sync</span></p></li><li><p><code>this</code><span> inside EH is set to object that EH is registered on, i.e. same as </span><code>currentTarget</code><span> property of the EO</span></p></li><li><p><span>for most but not all built-in event types, EHs are executed first before any default action, e.g. EH for &quot;unload&quot; event of window (window close) isn&#39;t called before❓</span></p></li><li><p><span>can trigger event artificially in JS itself, e.g. for unit testing or custom events</span></p><p><span>beware: the </span><code>isTrusted</code><span> property of the EO is then </span><code>false</code></p><p><span>beware: result might be different than &quot;normal&quot; event because call stack is not empty (see Runtime environment)</span></p></li></ul><h3><a name="onevent-handlers-👎" class="md-header-anchor"></a><span>On</span><code>event</code><span> handlers 👎</span></h3><h4><a name="inline-ehs" class="md-header-anchor"></a><span>Inline EHs</span></h4><ul><li><p><span>EH is added to HTML element in HTML via on</span><code>event</code><span> attribute</span></p></li><li><p><span>Inline EH is parsed before any script, i.e. executes before any other EHs for given ET and event type</span></p></li><li><p><span>can prevent default action also by adding </span><code>return false</code><span> to EH</span></p></li><li><p><span>EH is actually wrapped in anonymous function that is passed the EO as argument &quot;event&quot;, i.e. can access EO only via variable named &quot;event&quot;</span></p></li><li><p><span>problems:</span></p><ul><li><span>can only register single EH per ET</span></li><li><span>can not change or delete EH later</span></li><li><span>not supported for newer event types</span></li><li><span>no seperation of HTML and JS</span></li></ul></li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="html"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="html"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">a</span> <span class="cm-attribute">onclick</span>=<span class="cm-string">'console.log("Hello World!");return false;'</span><span class="cm-tag cm-bracket">&gt;</span>...<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">a</span><span class="cm-tag cm-bracket">&gt;</span>'</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 22px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><h4><a name="eh-properties" class="md-header-anchor"></a><span>EH properties</span></h4><ul><li><p><span>EH is added to ET in JS via on</span><code>event</code><span> property</span></p></li><li><p><span>set EH to function, not it&#39;s result at compile time, i.e. no parentheses ()</span></p></li><li><p><span>can change EH through reassignment, delete by assigning it </span><code>null</code></p></li><li><p><span>can call on</span><code>event</code><span> property or ET to dispatch event</span></p></li><li><p><span>problems:</span></p><ul><li><span>can only register single EH per ET</span></li><li><span>not supported for newer event types</span></li></ul></li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="javascript"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="javascript"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">myobj</span>.<span class="cm-property">onclick</span> <span class="cm-operator">=</span> <span class="cm-keyword">function</span>(<span class="cm-def">event</span>) {<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">"Hello World!"</span>);}</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 22px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><h3><a name="event-listeners-👍" class="md-header-anchor"></a><span>Event Listeners 👍</span></h3><ul><li><p><code>EventTarget.addEventListener()</code><span>: add EH to ET for event type</span></p></li><li><p><span>works for all types of events</span></p></li><li><p><span>for legacy purposes EH can be object instead of function, then the object&#39;s </span><code>handleEvent</code><span> property becomes the EH which is called</span></p></li><li><p><span>set EH to function, not it&#39;s result at compile time, i.e. no parentheses ()</span></p></li><li><p><span>can register as many EHs per ET as wants, called in order of attachment</span></p></li><li><p><code>EventTarget.removeEventListener()</code><span>: remove EH from ET for event type</span></p><p><span>beware: EH must be identical reference as when created using </span><code>aEL()</code><span>, i.e. can&#39;t use anonymous function, must use named function</span></p><p><span>beware: </span><code>rEL()</code><span> throws no error if EH doesn&#39;t exist ⚠️</span></p></li><li><p><code>EventTarget.dispatchEvent()</code><span>: trigger event of event type on ET, needs to be passed EO created using event type constructor (see Custom events)</span></p><p><span>beware: EH is called synchronously ⚠️</span></p></li></ul><p>&nbsp;</p><h2><a name="dom-event-flow" class="md-header-anchor"></a><span>DOM event flow</span></h2><ul><li><p><span>(doesn&#39;t apply to other events than in DOM, e.g. XMLHttpRequest ⚠️)</span></p></li><li><p><span>DOM event target is the </span><em><span>deepest</span></em><span> node where event happened</span></p></li><li><p><span>DOM event travels from root node through DOM to target node and back, firing on every node on way, i.e. all their EHs for this event type get called</span></p><p><span>(here &quot;root node&quot; is </span><code>window</code><span> object, before </span><code>document</code><span>, even though it&#39;s not part of DOM)</span></p></li><li><p><span>capturing phase: DOM event propagates down from root node</span></p></li><li><p><span>targeting phase: DOM event fires on target node</span></p></li><li><p><span>bubbling phase: DOM event &quot;bubbles up&quot; back to root node</span></p></li><li><p><span>EO property </span><code>target</code><span> is constant target node while </span><code>currentTarget</code><span> changes with every propagation step</span></p></li><li><p><span>EHs are by default registered in bubbling phase, can change in </span><code>aEL()</code><span>, i.e. on</span><code>event</code><span> handlers are always in bubbling phase</span></p></li><li><p><span>all events capture but not all bubble, e.g. &quot;focus&quot; and &quot;blur&quot; don&#39;t bubble, can check </span><code>bubbles</code><span> property of EO</span></p></li><li><p><span>can stop propagation with </span><code>sP()</code><span> or </span><code>sIP()</code></p><p><span>beware: might stop other desired events, e.g. from deeper nodes, events for analytics, etc.</span></p></li><li><p><span>event delegation: add only one EH to parent instead one to each descendant individually, use event bubbling to advantage, e.g. only on </span><code>&lt;ul&gt;</code><span> instead of each </span><code>&lt;li&gt;</code></p></li></ul><p>&nbsp;</p><h2><a name="custom-events" class="md-header-anchor"></a><span>Custom events</span></h2><ul><li><span>create custom event with any event type constructor, e.g. </span><code>Event()</code><span>, </span><code>MouseEvent()</code><span>, </span><code>CustomEvent()</code></li><li><span>argument object with </span><code>bubbles</code><span> and </span><code>cancelable</code><span> properties, by default are both false❗️</span></li><li><span>in </span><code>CustomEvent()</code><span> can add custom data via </span><code>detail</code><span> property in argument object</span></li><li><span>needs to trigger via </span><code>EventTarget.dispatchEvent()</code><span> since browser doesn&#39;t know this event type</span></li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="javascript"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="javascript"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">let</span> <span class="cm-def">hungryDay</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">CustomEvent</span>(<span class="cm-string">"hunger"</span>, {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-property">bubbles</span>: <span class="cm-atom">true</span>,</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-property">cancelable</span>: <span class="cm-atom">false</span>,</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-property">detail</span>: {<span class="cm-property">favMeal</span>: <span class="cm-string">"hamburger"</span>, <span class="cm-property">favDrink</span>: <span class="cm-string">"fanta"</span>}</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">});</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">document</span>.<span class="cm-property">body</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">"hunger"</span>, <span class="cm-def">event</span> <span class="cm-operator">=&gt;</span> {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">"Body needs "</span> <span class="cm-operator">+</span> <span class="cm-variable-2">event</span>.<span class="cm-property">detail</span>.<span class="cm-property">favMeal</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">});</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">document</span>.<span class="cm-property">body</span>.<span class="cm-property">firstElementChild</span>.<span class="cm-property">dispatchEvent</span>(<span class="cm-variable">hungryDay</span>);</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 198px;"></div><div class="CodeMirror-gutters" style="display: none; height: 198px;"></div></div></div></pre><p>&nbsp;</p><h2><a name="event-rate" class="md-header-anchor"></a><span>Event rate</span></h2><ul><li><span>often an event fires very often repeatedly, e.g. &quot;scroll&quot;, &quot;mousemove&quot;, &quot;resize&quot;, etc.</span></li><li><span>needs way to limit rate of EH function calls</span></li><li><span>makes use of closure to store reference / decision variable</span></li><li><span>pass value of </span><code>debounce()</code><span> / </span><code>throttle()</code><span> as argument to </span><code>aEL()</code><span> not function, i.e. use parentheses ()</span></li><li><span>in an EH </span><code>this</code><span> is the event&#39;s current target, because of the nested functions here it is set to the global object when accessed from within the actual EH (&quot;callback&quot;), use </span><code>apply()</code><span> and arrow function to preserve it</span></li></ul><h3><a name="debouncing" class="md-header-anchor"></a><span>Debouncing</span></h3><ul><li><span>debouncing: callback is executed only after it hasn&#39;t been called for X ms</span></li><li><span>wait with callback until event is done, e.g. for scroll, mousemove</span></li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="javascript"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="javascript"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">function</span> <span class="cm-def">debounce</span>(<span class="cm-def">callback</span>, <span class="cm-def">time</span>) {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-keyword">let</span> <span class="cm-def">timeoutId</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-keyword">return</span> <span class="cm-keyword">function</span>(<span class="cm-meta">...</span><span class="cm-def">args</span>) {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">clearTimeout</span>(<span class="cm-variable-2">timeoutId</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable-2">timeoutId</span> <span class="cm-operator">=</span> <span class="cm-variable">setTimeout</span>(() <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">callback</span>.<span class="cm-property">apply</span>(<span class="cm-keyword">this</span>, <span class="cm-variable-2">args</span>), <span class="cm-variable-2">time</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  };</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">document</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">'scroll'</span>, <span class="cm-variable">debounce</span>(() <span class="cm-operator">=&gt;</span> {<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">"Scrolling"</span>)}, <span class="cm-number">300</span>));</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 264px;"></div><div class="CodeMirror-gutters" style="display: none; height: 264px;"></div></div></div></pre><h3><a name="throttling" class="md-header-anchor"></a><span>Throttling</span></h3><ul><li><span>throttling: callback is executed only every X ms</span></li><li><span>limit rate of callbacks while event handling, e.g. for input, resize</span></li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="javascript" style="break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="javascript"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">function</span> <span class="cm-def">throttle</span>(<span class="cm-def">callback</span>, <span class="cm-def">time</span>) {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-keyword">let</span> <span class="cm-def">enableCall</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-keyword">return</span> <span class="cm-keyword">function</span>(<span class="cm-meta">...</span><span class="cm-def">args</span>) {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">if</span> (<span class="cm-operator">!</span><span class="cm-variable-2">enableCall</span>) {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  } <span class="cm-keyword">else</span> {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">enableCall</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">callback</span>.<span class="cm-property">apply</span>(<span class="cm-keyword">this</span>, <span class="cm-variable-2">args</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-variable">setTimeout</span>(() <span class="cm-operator">=&gt;</span> {<span class="cm-variable-2">enableCall</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>}, <span class="cm-variable-2">time</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">document</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">'scroll'</span>, <span class="cm-variable">throttle</span>(() <span class="cm-operator">=&gt;</span> {<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">"Scrolling"</span>)}, <span class="cm-number">300</span>));</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 352px;"></div><div class="CodeMirror-gutters" style="display: none; height: 352px;"></div></div></div></pre><ul><li><span>can use </span><code>rAF</code><span> instead of </span><code>setTimeout</code><span> to make time interval match the browser&#39;s repaint interval</span></li><li><span>e.g. for animations</span></li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm md-focus" lang="javascript" style="break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="javascript"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">function</span> <span class="cm-def">throttleRAF</span>(<span class="cm-def">callback</span>) {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-keyword">let</span> <span class="cm-def">enableCall</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-keyword">return</span> <span class="cm-keyword">function</span>(<span class="cm-meta">...</span><span class="cm-def">args</span>) {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">if</span> (<span class="cm-operator">!</span><span class="cm-variable-2">enableCall</span>) {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  } <span class="cm-keyword">else</span> {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">enableCall</span> <span class="cm-operator">=</span> <span class="cm-atom">false</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-variable-2">callback</span>.<span class="cm-property">apply</span>(<span class="cm-keyword">this</span>, <span class="cm-variable-2">args</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-variable">requestAnimationFrame</span>(() <span class="cm-operator">=&gt;</span> {<span class="cm-variable-2">enableCall</span> <span class="cm-operator">=</span> <span class="cm-atom">true</span>});</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">document</span>.<span class="cm-property">addEventListener</span>(<span class="cm-string">'scroll'</span>, <span class="cm-variable">throttleRAF</span>(() <span class="cm-operator">=&gt;</span> {<span class="cm-variable">console</span>.<span class="cm-property">log</span>(<span class="cm-string">"Scrolling"</span>)}));</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 352px;"></div><div class="CodeMirror-gutters" style="display: none; height: 352px;"></div></div></div></pre></div>
+</body>
+</html>
