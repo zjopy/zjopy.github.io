@@ -1,4 +1,6 @@
-// Setup canvas
+"use strict";
+
+// Set up canvas
 
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
@@ -8,7 +10,7 @@ const height = canvas.height = window.innerHeight;
 
 // Remaining ball counter
 
-para = document.querySelector('p');
+const para = document.querySelector('p');
 let eatenBalls = 0;
 
 function updateCounter(eatenBalls) {
@@ -23,8 +25,7 @@ function updateCounter(eatenBalls) {
 // Random number generator
 
 function random(min, max) {
-  const num = Math.floor(Math.random() * (max - min)) + min;
-  return num;
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 
 // Shape class
@@ -56,7 +57,7 @@ Ball.prototype.draw = function() {
   ctx.fillStyle = this.color;
   ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
   ctx.fill();
-}
+};
 
 // Update position method
 
@@ -79,7 +80,7 @@ Ball.prototype.updatePosition = function() {
 
   this.x += this.velX;
   this.y += this.velY;
-}
+};
 
 // Make balls
 
@@ -130,11 +131,11 @@ Ball.prototype.collisionDetect = function() {
       }
     }
   }
-}
+};
 
 // Evil Circle subclass
 
-evilSize = 10;
+const evilSize = 10;
 class EvilCircle extends Shape {
   constructor(x, y, exists) {
     super(x, y, 20, 20, exists);
@@ -151,7 +152,7 @@ EvilCircle.prototype.draw = function() {
   ctx.lineWidth = 3;
   ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
   ctx.stroke();
-}
+};
 
 // Update position method
 
@@ -171,7 +172,7 @@ EvilCircle.prototype.updatePosition = function() {
   if ((this.y - this.size) <= 0) {
     this.y += this.size;
   }
-}
+};
 
 // Set controls method
 
@@ -206,11 +207,11 @@ EvilCircle.prototype.collisionDetect = function() {
       }
     }
   }
-}
+};
 
 // Make Evil Circle
 
-let evilCircle = new EvilCircle(random(0 + evilSize, width - evilSize), random(0 + evilSize, width - evilSize), true)
+let evilCircle = new EvilCircle(random(0 + evilSize, width - evilSize), random(0 + evilSize, width - evilSize), true);
 evilCircle.setControls();
 
 // Animate

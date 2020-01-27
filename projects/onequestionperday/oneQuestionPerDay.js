@@ -1,3 +1,5 @@
+"use strict";
+
 const titleElement = document.querySelector("#title");
 const quoteElement = document.querySelector("#quote");
 const buttonElement = document.querySelector("#generateButton");
