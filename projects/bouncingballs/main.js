@@ -91,15 +91,14 @@ const maxVelocity = 7;
 while (balls.length < numberOfBalls) {
   let size = random(15, 20);
   let ball = new Ball(
-    // ball position always drawn at least one ball width
-    // away from the edge of the canvas, to avoid drawing errors
-    random(0 + size, width - size),
-    random(0 + size, height - size),
-    random(-maxVelocity, maxVelocity),
-    random(-maxVelocity, maxVelocity),
-    true,
-    'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
-    size
+      // ball position always drawn at least one ball width away from canvas edge to avoid drawing errors
+      random(0 + size, width - size),
+      random(0 + size, height - size),
+      random(-maxVelocity, maxVelocity),
+      random(-maxVelocity, maxVelocity),
+      true,
+      'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')',
+      size
   );
 
   balls.push(ball);
@@ -121,7 +120,9 @@ Ball.prototype.collisionDetect = function() {
       const bothRadii = this.size + balls[j].size;
 
       if (distance <= bothRadii) {
+        // Old color change
         // balls[j].color = this.color = 'rgb(' + random(0, 255) + ',' + random(0, 255) + ',' + random(0, 255) + ')';
+        // New actual bouncing
         const tmpVelX = this.velX;
         const tmpVelY = this.velY;
         this.velX = balls[j].velX;
@@ -178,6 +179,7 @@ EvilCircle.prototype.updatePosition = function() {
 
 EvilCircle.prototype.setControls = function() {
   let _this = this;
+  // window.addEventListener('onkeydown', function(e) {...}); doesn't work ???
   window.onkeydown = function(e) {
     if (e.key === 'a') {
       _this.x -= _this.velX;
@@ -245,10 +247,9 @@ loop();
 
 function cancelAnimation() {
   cancelAnimationFrame(requestID);
-
-
   let h2 = document.createElement('h2');
   h2.innerHTML = "Congratulations!<br>You won!";
   h2.setAttribute("class", "banner");
   document.body.appendChild(h2);
+  window.onkeydown = null;
 }
