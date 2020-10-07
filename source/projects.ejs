@@ -1,0 +1,19 @@
+---
+layout: base.ejs
+title: Projects
+author: vwkd
+description: projects i did
+css: projects.css
+---
+
+<h1><%= title %></h1>
+
+<ul>
+    <% collections.projects.forEach(project => { %>
+        <li>
+            <a href="<%= project.url %>">
+                <%= project.data.title %>
+            </a>
+        </li>
+    <% })%>
+</ul>
