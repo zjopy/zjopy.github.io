@@ -22,7 +22,8 @@ header ul {
     flex: 1;
     flex-direction: row;
     justify-content: flex-end;
-    gap: 1rem;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 header li:first-child {
@@ -32,7 +33,6 @@ header li:first-child {
 main {
     flex: 1;
     flex-direction: row;
-    justify-content: center;
 }
 
 footer {
@@ -44,9 +44,10 @@ footer {
 
 :root {
     --color-primary: black;
-    --color-secondary: white;
-    --color-secondary--hov: #efefef;
-    --color-secondary--act: #e6e6e6;
+    --color-secondary: #6d6d6d;
+    --color-background: white;
+    --color-background--hov: #efefef;
+    --color-background--act: #e6e6e6;
     /* --color-secondary-inv: #fefefe; */
     --border-radius: 0.25rem;
     /* accessibility */
@@ -56,20 +57,13 @@ footer {
 
 html {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
     font-size: 16px;
     font-weight: 400;
     color: var(--color-primary);
-    background-color: var(--color-secondary);
+    background-color: var(--color-background);
 }
-
-/* a:hover {
-    text-decoration: underline;
-}
-
-a:active {
-    text-decoration-style: dashed;
-} */
 
 button,
 a {
@@ -80,20 +74,30 @@ a {
         transform;
 }
 
-header a {
-    padding: 0.5rem 1rem;
+button,
+a {
+    padding: 0.5rem;
     border-radius: var(--border-radius);
     white-space: nowrap;
 }
 
-header a:hover {
-    background-color: var(--color-secondary--hov);
+.current,
+button:hover,
+a:hover {
+    background-color: var(--color-background--hov);
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
-header a:active {
-    background-color: var(--color-secondary--act);
+button:active,
+a:active {
+    background-color: var(--color-background--act);
     box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.1), 0 1px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+header svg {
+    fill: white;
+    width: 1.25rem;
+    height: 1.25rem;
 }
 
 footer {
@@ -104,26 +108,22 @@ footer {
 
 @media (prefers-color-scheme: dark) {
     :root {
-    --color-primary: white;
-    --color-secondary: black;
-    --color-secondary--hov: #1d1d1d;
-    --color-secondary--act: #2f2f2f;
+        --color-primary: white;
+        --color-secondary: #ababab;
+        --color-background: black;
+        --color-background--hov: #1d1d1d;
+        --color-background--act: #2f2f2f;
     }
 
+    .current,
+    button:hover,
     a:hover {
-        /* color: var(--color-gray-300); */
-    }
-
-    a:active {
-        /* color: var(--color-white); */
-    }
-
-    header a:hover {
         box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.2), 0 1px 2px 0 rgba(255, 255, 255, 0.12);
     }
-    
-    header a:active {
+
+    button:active,
+    a:active {
         box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.3), 0 1px 2px 0 rgba(255, 255, 255, 0.12);
-        /* background-color: var(--color-secondary-act); */
+        /* background-color: var(--color-background-act); */
     }
 }

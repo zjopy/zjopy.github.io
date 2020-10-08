@@ -1,1 +1,44 @@
 /* todo */
+
+main ul {
+    flex-direction: column;
+    flex: 1;
+}
+
+main a {
+    flex: 1;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: 200px;
+}
+
+main .title {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+main .author {
+    font-weight: 600;
+    color: var(--color-secondary);
+}
+
+main .description {
+    flex: 1;
+}
+
+.foot {
+    gap: 1rem;
+    align-items: center;
+    color: var(--color-secondary);
+}
+
+.foot time {
+    margin-right: auto;
+}
+
+.foot div {
+    /* todo */
+    background-color: var(--color-background--act);
+    border-radius: (--border-radius);
+    padding: 0.2rem 0.5rem;
+}

@@ -1,13 +1,11 @@
 ---
-title: Raaaaad title
+title: 2Raaaaad second
 description: Coooooool desc
 author: vwkd
 date: 2020-10-08
 tags: 
   - hello
 ---
-# First post
+# Second post
 
 Hello World!
-
-<%- date %>

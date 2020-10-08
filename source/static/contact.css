@@ -1,1 +1,37 @@
-/* todo */
+main {
+    justify-content: center;
+    align-items: center;
+}
+
+main form {
+    flex: 1;
+    min-width: 300px;
+    max-width: 700px;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 1rem;
+}
+
+main button {
+    grid-column: span 1 / -1;
+    justify-self: right;
+    font-size: 1.2rem;
+}
+
+label[for="name"],
+label[for="email"] {
+    align-items: center;
+}
+
+label[for="message"] {
+    margin-top: 1rem;
+}
+
+main input,
+textarea {
+    background-color: var(--color-background--hov);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+}

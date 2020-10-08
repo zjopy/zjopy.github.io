@@ -6,13 +6,19 @@ description: blog blog blog
 css: blog.css
 ---
 
-<h1><%= title %></h1>
-
 <ul>
     <% collections.posts.forEach(post => { %>
         <li>
             <a href="<%= post.url %>">
-                <%= post.data.title %>
+                <h2 class="title"><%= post.data.title %></h2>
+                <p class="author"><%= post.data.author %></p>
+                <p class="description"><%= post.data.description %></p>
+                <div class="foot">
+                    <time datetime="<%= post.data.date %>"><%= post.data.date.toLocaleDateString() %></time>
+                    <% post.data.tags.forEach(tag => { %>
+                        <div><%= tag %></div>
+                        <% }) %>
+                    </div>
             </a>
         </li>
     <% })%>
