@@ -1,8 +1,4 @@
 {
   "layout": "post.ejs",
-  "tags": ["posts"],
-  "sitemap": {
-    "changefreq": "weekly",
-    "priority": "0.75"
-  }
+  "tags": ["posts"]
 }

@@ -1,3 +1,5 @@
+const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+
 module.exports = function (eleventyConfig) {
     // pass through static files
     eleventyConfig.addPassthroughCopy("source/static");
@@ -7,6 +9,9 @@ module.exports = function (eleventyConfig) {
 
     // only process .md, .html and .ejs files
     eleventyConfig.setTemplateFormats(["md", "ejs", "html"]);
+
+    // plugins
+    eleventyConfig.addPlugin(pluginSyntaxHighlight);
 
     return {
         // set input and output folder

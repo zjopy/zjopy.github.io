@@ -1,37 +1,39 @@
 # Personal blog of vwkd
 
 
+
 ## Todo
 
-- feed
-- post tags
-- hamburger menu
-- google analytics
+## Fix
+
+- post page, add back reset.css, restyle 
+- frontmatter descriptions
+
+### Functional
+
+- previous and next links at end of posts
+- RSS feed
+- blog post tags
+- analytics
 - contact form: Formcarry, Netlify Forms
 - meta tags (SEO, Facebook Open Graph, Twitter Cards)
 - code highlighting: highlight.js
 - share buttons: sharer.js
 
+### Visual
 
-## Fix
+- hamburger menu
 
-- frontmatter descriptions
 
 
 ## Note
 
-- change sitemap priority and frequency if something changes!!!
+- remember to change sitemap priority and frequency if behavior changes
 
 
-## Collections
 
-<!-- note: can't use yet custom date -->
-- dateCreated: creation date, don't update
-- dateUpdated: last modified date, update
-date tag if specified gets attached time 00:00 UTC ?! 
+## Keys
 
+- date: creation date, specify once and don't change, because used for sorting, uses 00:00 UTC if no time specified
 - sitemap ignore: true to prevent adding to sitemap, default is false
-
-## Problems
-
 - can't yet use custom processing functions for frontmatter keys, e.g. parse an `update` field as a JavaScript date object

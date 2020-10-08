@@ -1,13 +1,14 @@
 ---
 layout: base.ejs
+css: blog.css
 title: Blog
 author: vwkd
 description: blog blog blog
-css: blog.css
+sitemap:
+    changefreq: daily
+    priority: 0.9
 ---
-
 <!-- todo: add tags -->
-
 <% const posts = collections.posts; posts.reverse(); %>
 <ol reversed style="--counter-length: <%= posts.length + 1 %>">
     <% posts.forEach(post => { %>
@@ -20,9 +21,9 @@ css: blog.css
                 </div>
                 <p class="description"><%= post.data.description %></p>
                 <div class="tags">
-                    <% post.data.tags.forEach(tag => { %>
+                    <% post.data.tags.forEach(tag => { if (tag !== "posts") { %>
                         <div><%= tag %></div>
-                        <% }) %>
+                        <% } }) %>
                     </div>
             </a>
         </li>
