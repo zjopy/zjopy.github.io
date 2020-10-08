@@ -6,18 +6,13 @@ description: projects i did
 css: projects.css
 ---
 
-<!-- <h1><%= title %></h1> -->
+<div class="grid">
 
 <% collections.projects.forEach(project => { %>
 <a href="<%= project.url %>">
     <h2 class="title"><%= project.data.title %></h2>
-    <p class="author"><%= project.data.author %></p>
     <p class="description"><%= project.data.description %></p>
-    <div class="foot">
-        <time datetime="<%= project.data.date %>"><%= project.data.date.toLocaleDateString() %></time>
-        <% project.data.tags.forEach(tag => { %>
-            <div><%= tag %></div>
-            <% }) %>
-        </div>
 </a>
 <% })%>
+
+</div>

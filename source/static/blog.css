@@ -1,15 +1,30 @@
 /* todo */
 
-main ul {
-    flex-direction: column;
+main {
+    justify-content: center;
+}
+
+main ol {
     flex: 1;
+    flex-direction: column;
+    gap: 1rem;
+    counter-reset: post-number var(--counter-length);
+    max-width: 800px;
+}
+
+main ol li::before {
+    content: counter(post-number) ".";
+    counter-increment: post-number -1;
+    align-self: flex-start;
+    margin-block-start: 0.5rem;
+    color: grey;
+    font-size: 1.5rem;
 }
 
 main a {
     flex: 1;
     flex-direction: column;
     gap: 1rem;
-    min-height: 200px;
 }
 
 main .title {
@@ -22,23 +37,28 @@ main .author {
     color: var(--color-secondary);
 }
 
-main .description {
-    flex: 1;
+main .second {
+    gap: 1rem;
 }
 
-.foot {
+.tags {
+    flex-wrap: wrap;
+    /* align-items: flex-start; */
     gap: 1rem;
-    align-items: center;
     color: var(--color-secondary);
 }
 
-.foot time {
-    margin-right: auto;
-}
-
-.foot div {
+.tags div {
     /* todo */
     background-color: var(--color-background--act);
-    border-radius: (--border-radius);
+    border-radius: var(--border-radius);
     padding: 0.2rem 0.5rem;
+}
+
+@media screen and (min-width: 420px) {
+
+main ol li {
+    gap: 1rem;
+}
+
 }

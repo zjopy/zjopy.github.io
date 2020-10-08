@@ -6,15 +6,20 @@ description: blog blog blog
 css: blog.css
 ---
 
-<ul>
-    <% collections.posts.forEach(post => { %>
+<!-- todo: add tags -->
+
+<% const posts = collections.posts; posts.reverse(); %>
+<ol reversed style="--counter-length: <%= posts.length + 1 %>">
+    <% posts.forEach(post => { %>
         <li>
             <a href="<%= post.url %>">
                 <h2 class="title"><%= post.data.title %></h2>
-                <p class="author"><%= post.data.author %></p>
-                <p class="description"><%= post.data.description %></p>
-                <div class="foot">
+                <div class="second">
+                    <p class="author"><%= post.data.author %></p>
                     <time datetime="<%= post.data.date %>"><%= post.data.date.toLocaleDateString() %></time>
+                </div>
+                <p class="description"><%= post.data.description %></p>
+                <div class="tags">
                     <% post.data.tags.forEach(tag => { %>
                         <div><%= tag %></div>
                         <% }) %>
@@ -22,4 +27,4 @@ css: blog.css
             </a>
         </li>
     <% })%>
-</ul>
+</ol>

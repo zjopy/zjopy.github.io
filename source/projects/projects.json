@@ -1,4 +1,7 @@
 {
-  "layout": "project.ejs",
-  "tags": ["projects"]
+  "tags": ["projects"],
+  "sitemap": {
+    "changefreq": "weekly",
+    "priority": "0.75"
+  }
 }

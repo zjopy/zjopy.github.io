@@ -1,0 +1,24 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <% collections.all.forEach(page => { if(page.data?.sitemap?.ignore !== true) { %>
+    <url>
+        <loc><%= metadata.rootUrl %><%= page.url %></loc>
+        <!-- <% if (page.data.updated) { %> -->
+        <!-- <lastmod><%= page.data.updated.toISOString() %></lastmod> -->
+        <!-- <% } else { %> -->
+        <lastmod><%= page.date.toISOString() %></lastmod>
+        <!-- <% } %> -->
+        <% if (page.data?.sitemap?.changefreq) { %>
+        <changefreq><%= page.data.sitemap.changefreq %></changefreq>
+        <% } %>
+        <% if (page.data?.sitemap?.priority) { %>
+        <priority><%= page.data.sitemap.priority %></priority>
+        <% } %>
+    </url>
+    <% } }) %>
+</urlset>

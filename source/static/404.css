@@ -1,1 +1,8 @@
-/* todo */
+main {
+    flex-direction: column;
+}
+
+main p {
+    font-size: 20vmin;
+    font-weight: 700;
+}
