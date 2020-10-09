@@ -6,12 +6,12 @@
 
 ## Fix
 
-- post page, add back reset.css, restyle 
-- frontmatter descriptions
+- back button on post and project page, or navigation if can make `reset.css` work
+- meaningful frontmatter descriptions
 
 ### Functional
 
-- previous and next links at end of posts
+- previous and next links at end of blog posts
 - RSS feed
 - blog post tags
 - analytics

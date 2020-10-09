@@ -3,6 +3,7 @@ const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 module.exports = function (eleventyConfig) {
     // pass through static files
     eleventyConfig.addPassthroughCopy("source/static");
+    eleventyConfig.addPassthroughCopy("source/projects");
 
     // bug fix: necessary to merge tags from front matter and .json
     eleventyConfig.setDataDeepMerge(true);

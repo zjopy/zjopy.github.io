@@ -3,17 +3,17 @@ layout: base.ejs
 css: projects.css
 title: Projects
 author: vwkd
-description: projects i did
+description: Projects
 sitemap:
-    changefreq: daily
+    changefreq: weekly
     priority: 0.9
 ---
 <div class="grid">
 
-<% collections.projects.forEach(project => { %>
+<% projects.forEach(project => { %>
 <a href="<%= project.url %>">
-    <h2 class="title"><%= project.data.title %></h2>
-    <p class="description"><%= project.data.description %></p>
+    <h2 class="title"><%= project.title %></h2>
+    <p class="description"><%= project.description %></p>
 </a>
 <% })%>
 

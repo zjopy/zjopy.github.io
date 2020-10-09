@@ -1,0 +1,16 @@
+{
+  "projects": [
+    { "title": "Svelte TodoMVC", "description": "New implementation of [svelte-todomvc](https://github.com/sveltejs/svelte-todomvc) with TypeScript and CSS Flex Layout. Made from the project template [sveltejs/template](https://github.com/sveltejs/template).", "url": "todo" },
+    { "title": "Deno Modules", "description": "List of modules compatible with Deno from Github repositories tagged `deno`.", "url": "deno-modules" },
+    {
+      "title": "One Question Per Day",
+      "description": "An inspirational question generator.",
+      "url": "onequestionperday"
+    },
+    {
+      "title": "Bouncing Balls",
+      "description": "My first simple game. Use the keys w, a, s, d to move the evil circle to eat the bouncing balls.",
+      "url": "bouncingballs"
+    }
+  ]
+}

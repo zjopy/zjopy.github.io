@@ -36,8 +36,7 @@ footer {
 
 @media screen and (min-width: 420px) {
     body {
-    padding: 1rem 2rem;
-
+        padding: 1rem 2rem;
     }
     header nav {
         flex: 1;
@@ -98,7 +97,7 @@ button,
 a {
     padding: 0.5rem;
     border-radius: var(--border-radius);
-    white-space: nowrap;
+    /* white-space: nowrap; */
 }
 
 .current,

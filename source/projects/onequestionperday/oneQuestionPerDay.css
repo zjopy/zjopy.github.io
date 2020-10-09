@@ -1,0 +1,86 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Serif', serif;
+  text-align: center;
+  height: 100vh;
+  /* to be containing block of absolutely positioned blockquote */
+  position: relative;
+}
+
+header h1 {
+  font-size: 3em;
+}
+
+blockquote {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  padding: 1em 3em;
+  background-color: #eee;
+  border-radius: 5px;
+}
+
+#quote {
+  margin: 0 0 1em 0;
+  letter-spacing: 0.2px;
+  font-size: 1.3em;
+}
+
+#title {
+  font-variant: small-caps;
+  font-size: 0.8em;
+  letter-spacing: 1px;
+  color: #777;
+  margin: 0;
+}
+
+#generateButton {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  margin: 0 auto;
+  padding: 0.8em 1em;
+  background-color: #0069ed;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-family: inherit;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+
+#generateButton:hover,
+#generateButton:focus {
+  background-color: #0062de;
+}
+
+#generateButton:focus {
+  outline: none;
+}
+
+#generateButton:active {
+  background-color: #0054c0;
+}
+
+footer {
+  position: absolute;
+  bottom: 3em;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  font-size: 0.6em;
+  color: #aaa;
+}
+
+@media screen and (max-width: 800px) {
+  blockquote {
+    width: 90%;
+    padding: 1em;
+  }
+}
