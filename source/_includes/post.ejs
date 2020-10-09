@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <title><%= metadata.title %> · <%= title %></title>
+        <meta name="author" content="<%= author %>" />
+        <!-- ToDo: use metadata.description on home -->
+        <meta name="description" content="<%= description %>" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="/static/favicon.ico" />
+        <!-- <link rel="stylesheet" href="/static/reset.css" /> -->
+        <link rel="stylesheet" href="/static/base.css" />
+        <!-- <link rel="stylesheet" href="/static/post.css" /> -->
+        <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet" />
+    </head>
+
+    <body>
+        <!-- <header><%- include('_header', {title: metadata.title}); %></header> -->
+        <main><%- content %></main>
+
+        <!-- <footer><%- include('_footer', {title: metadata.title}); %></footer> -->
+    </body>
+</html>

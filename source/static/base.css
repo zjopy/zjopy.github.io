@@ -1,0 +1,148 @@
+/* --------- LAYOUT --------- */
+
+body {
+    flex: 1;
+    align-self: stretch;
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+header {
+    font-size: 1.2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-background--hov);
+}
+
+header nav {
+    justify-content: flex-start;
+}
+
+header ul {
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-background--hov);
+}
+
+@media screen and (min-width: 420px) {
+    body {
+        padding: 1rem 2rem;
+    }
+    header nav {
+        flex: 1;
+        justify-content: flex-end;
+    }
+
+    header ul {
+        flex: 1;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    header li:first-child {
+        margin-right: auto;
+    }
+}
+
+/* --------- STYLES --------- */
+
+/* breakpoint is 420px because of header */
+
+:root {
+    --color-primary: black;
+    --color-secondary: #6d6d6d;
+    --color-background: white;
+    --color-background--hov: #efefef;
+    --color-background--act: #e6e6e6;
+    /* --color-secondary-inv: #fefefe; */
+    --border-radius: 0.25rem;
+    --max-width: 1200px;
+    --min-width: 300px;
+    /* accessibility */
+    --focus-outline-offset: 5px;
+    --focus-outline-color: var(--color-primary);
+}
+
+html {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+        Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--color-primary);
+    background-color: var(--color-background);
+}
+
+button,
+a {
+    cursor: pointer;
+    transition-duration: 0.15s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow,
+        transform;
+}
+
+button,
+a {
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    /* white-space: nowrap; */
+}
+
+.current,
+button:hover,
+a:hover {
+    background-color: var(--color-background--hov);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+button:active,
+a:active {
+    background-color: var(--color-background--act);
+    box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.1), 0 1px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+header svg {
+    fill: white;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+footer {
+    font-weight: 300;
+}
+
+/* --------- STYLES (DARK MODE) --------- */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-primary: white;
+        --color-secondary: #ababab;
+        --color-background: black;
+        --color-background--hov: #1d1d1d;
+        --color-background--act: #2f2f2f;
+    }
+
+    .current,
+    button:hover,
+    a:hover {
+        box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.2), 0 1px 2px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    button:active,
+    a:active {
+        box-shadow: 0 1px 3px 0 rgba(255, 255, 255, 0.3), 0 1px 2px 0 rgba(255, 255, 255, 0.12);
+        /* background-color: var(--color-background-act); */
+    }
+}

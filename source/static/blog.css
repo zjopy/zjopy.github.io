@@ -1,0 +1,64 @@
+/* todo */
+
+main {
+    justify-content: center;
+}
+
+main ol {
+    flex: 1;
+    flex-direction: column;
+    gap: 1rem;
+    counter-reset: post-number var(--counter-length);
+    max-width: 800px;
+}
+
+main ol li::before {
+    content: counter(post-number) ".";
+    counter-increment: post-number -1;
+    align-self: flex-start;
+    margin-block-start: 0.5rem;
+    color: grey;
+    font-size: 1.5rem;
+}
+
+main a {
+    flex: 1;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+main .title {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+main .author {
+    font-weight: 600;
+    color: var(--color-secondary);
+}
+
+main .second {
+    gap: 1rem;
+}
+
+.tags {
+    flex-wrap: wrap;
+    /* align-items: flex-start; */
+    gap: 1rem;
+    color: var(--color-secondary);
+}
+
+.tags div {
+    /* todo */
+    background-color: var(--color-background--act);
+    border-radius: var(--border-radius);
+    padding: 0.2rem 0.5rem;
+}
+
+@media screen and (min-width: 420px) {
+
+main ol li {
+    gap: 1rem;
+}
+
+}

@@ -1,0 +1,266 @@
+/* main {
+    flex-direction: column;
+}
+
+main li {
+    display: flex;
+    align-items: baseline;
+}
+
+main li > * {
+    margin-inline-start: 1ch;
+}
+
+main li > *:first-child {
+    margin-inline-start: 0;
+}
+
+*/
+
+/* TODODODODODODOD */
+
+/*
+
+main p {
+    margin-block-start: 1rem;
+    margin-block-end: 1rem;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+}
+
+main blockquote {
+    margin-block-start: 1rem;
+    margin-block-end: 1rem;
+    margin-inline-start: 40px;
+    margin-inline-end: 40px;
+}
+
+main hr {
+    overflow: hidden;
+    unicode-bidi: isolate;
+    margin-block-start: 0.5rem;
+    margin-block-end: 0.5rem;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+
+/* heading elements */
+
+main h1 {
+    font-size: 2rem;
+    margin-block-start: 0.67rem;
+    margin-block-end: 0.67rem;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    font-weight: bold;
+}
+
+main h2 {
+    font-size: 1.5rem;
+    margin-block-start: 0.83rem;
+    margin-block-end: 0.83rem;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    font-weight: bold;
+}
+
+main h3 {
+    font-size: 1.17rem;
+    margin-block-start: 1rem;
+    margin-block-end: 1rem;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    font-weight: bold;
+}
+
+main h4 {
+    margin-block-start: 1.33rem;
+    margin-block-end: 1.33rem;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    font-weight: bold;
+}
+
+main h5 {
+    font-size: 0.83rem;
+    margin-block-start: 1.67rem;
+    margin-block-end: 1.67rem;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    font-weight: bold;
+}
+
+main h6 {
+    font-size: 0.67rem;
+    margin-block-start: 2.33rem;
+    margin-block-end: 2.33rem;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    font-weight: bold;
+}
+
+/* tables */
+
+main table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: gray;
+    box-sizing: border-box;
+}
+
+main thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+main tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+main tfoot {
+    display: table-footer-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+/* for tables without table section elements (can happen with XHTML or dynamically created tables) */
+main table > tr {
+    vertical-align: middle;
+}
+
+main col {
+    display: table-column;
+}
+
+main colgroup {
+    display: table-column-group;
+}
+
+main tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+main td,
+main th {
+    display: table-cell;
+    vertical-align: inherit;
+}
+
+main th {
+    font-weight: bold;
+    text-align: -internal-center;
+}
+
+main caption {
+    display: table-caption;
+    text-align: -webkit-center;
+}
+
+/* lists */
+
+main ul {
+    flex-direction: column;
+    list-style-type: disc;
+    margin-block-start: 1rem;
+    margin-block-end: 1rem;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 40px;
+}
+
+main ol {
+    flex-direction: column;
+    list-style-type: decimal;
+    margin-block-start: 1rem;
+    margin-block-end: 1rem;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 40px;
+}
+
+main li {
+    /* display: list-item; */
+    text-align: -webkit-match-parent;
+}
+
+main ul ul,
+main ol ul {
+    list-style-type: circle;
+}
+
+main ol ol ul,
+main ol ul ul,
+main ul ol ul,
+main ul ul ul {
+    list-style-type: square;
+}
+
+main ol ul,
+main ul ol,
+main ul ul,
+main ol ol {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+/* inline elements */
+
+main ins {
+    text-decoration: underline;
+}
+
+main strong {
+    font-weight: bold;
+}
+
+main em {
+    font-style: italic;
+}
+
+main code,
+main kbd {
+    font-family: monospace;
+}
+
+main pre {
+    font-family: monospace;
+    white-space: pre;
+    margin: 1rem 0;
+}
+
+main mark {
+    background-color: yellow;
+    color: black;
+}
+
+main big {
+    font-size: larger;
+}
+
+main small {
+    font-size: smaller;
+}
+
+main s,
+main strike,
+main del {
+    text-decoration: line-through;
+}
+
+main sub {
+    vertical-align: sub;
+    font-size: smaller;
+}
+
+main sup {
+    vertical-align: super;
+    font-size: smaller;
+} */

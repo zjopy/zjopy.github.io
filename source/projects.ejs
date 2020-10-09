@@ -1,0 +1,20 @@
+---
+layout: base.ejs
+css: projects.css
+title: Projects
+author: vwkd
+description: Projects
+sitemap:
+    changefreq: weekly
+    priority: 0.9
+---
+<div class="grid">
+
+<% projects.forEach(project => { %>
+<a href="<%= project.url %>">
+    <h2 class="title"><%= project.title %></h2>
+    <p class="description"><%= project.description %></p>
+</a>
+<% })%>
+
+</div>
