@@ -1,4 +1,6 @@
-# Personal blog of vwkd
+# Readme
+
+This is my personal website. It is built with Eleventy, and hosted on GitHub Pages. Using the NPM scripts it can be built for development or production. For production it is built into the `docs` folder, while for production to the `build` folder.
 
 
 

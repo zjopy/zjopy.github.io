@@ -1,0 +1,60 @@
+main {
+    justify-content: center;
+    align-items: center;
+}
+
+main form {
+    flex: 1;
+    /* min-width: var(--min-width); */
+    max-width: 600px; 
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto auto 1fr auto;
+    grid-template-areas:
+        "name-label"
+        "name-input"
+        "email-label"
+        "email-input"
+        "message-label"
+        "message-input"
+        ". submit";
+}
+
+main button {
+    justify-self: right;
+    font-size: 1.2rem;
+}
+
+label[for="name"],
+label[for="email"] {
+    align-items: center;
+}
+
+main input,
+textarea {
+    background-color: var(--color-background--hov);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+}
+
+@media screen and (min-width: 420px) {
+    main form {
+        /* todo: make responsive */
+        grid-template-columns: max-content 1fr;
+        grid-template-rows: auto auto 1fr auto;
+        grid-template-areas:
+            "name-label name-input"
+            "email-label email-input"
+            "message-label message-input"
+            ". submit";
+    }
+
+    label[for="message"] {
+        margin-top: 1rem;
+    }
+
+    main button {
+        grid-column: span 1 / -1;
+    }
+}

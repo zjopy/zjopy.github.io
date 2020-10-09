@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://vwkd.github.io/sitemap.xml
