@@ -14,6 +14,7 @@ This is my personal website. It is built with Eleventy, and hosted on GitHub Pag
 ### Functional
 
 - previous and next links at end of blog posts
+- blog post TOC and header anchors
 - RSS feed
 - blog post tags
 - analytics
